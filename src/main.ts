@@ -4,9 +4,9 @@ import { CustomLoggerService } from './logger/logger.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
+    logger: new CustomLoggerService(),
     bufferLogs: true,
   });
-  app.useLogger(app.get(CustomLoggerService));
   await app.listen(3000);
 }
 bootstrap();
