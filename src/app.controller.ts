@@ -1,16 +1,16 @@
-import { Controller, Get, Logger } from '@nestjs/common'; // ①
+import { Controller, Get, Headers, Logger } from '@nestjs/common';
 
 import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  private readonly logger = new Logger(AppController.name); // ②
+  private readonly logger = new Logger(AppController.name);
 
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    this.logger.log('Logging at controller'); // ③
+  getHello(@Headers('request-id') requestId: string): string {
+    this.logger.log('Logging at controller', { requestId });
     return this.appService.getHello();
   }
 }
