@@ -1,5 +1,5 @@
 import { Injectable, LogLevel, LoggerService } from '@nestjs/common';
-import { storage } from './storage';
+import { storage } from './logger.middleware';
 
 const COLORS = {
   BLACK: '\u001b[30m',
@@ -21,7 +21,7 @@ export class CustomLoggerService implements LoggerService {
       .replaceAll('-', '/')
       .replace('T', ' ')
       .replace(/\..+/, '');
-    const requestId = storage.getStore();
+    const requestId = storage.getStore(); // from AsyncLocalStorage
     const context = args.pop();
     const message = args.shift();
 
@@ -39,11 +39,11 @@ export class CustomLoggerService implements LoggerService {
     if (process.env.NO_COLOR === 'true') {
       console.log(time, logString);
     } else {
-      console.log(time, this.colored(logString, color));
+      console.log(time, this.colorize(logString, color));
     }
   }
 
-  private colored(
+  private colorize(
     message: string,
     color: (typeof COLORS)[keyof typeof COLORS],
   ) {

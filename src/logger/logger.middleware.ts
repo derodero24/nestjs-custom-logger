@@ -1,9 +1,10 @@
-import { randomUUID } from 'node:crypto';
+import { AsyncLocalStorage } from 'async_hooks';
+import { randomUUID } from 'crypto';
 
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 
-import { storage } from './storage';
+export const storage = new AsyncLocalStorage<string>();
 
 @Injectable()
 export class CustomLoggerMiddleware implements NestMiddleware {
