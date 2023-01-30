@@ -35,7 +35,12 @@ export class CustomLoggerService implements LoggerService {
         ? COLORS.YELLOW
         : COLORS.RED;
 
-    console.log(time, this.colored(logString, color));
+    // To disable color, set the NO_COLOR environment variable to "true".
+    if (process.env.NO_COLOR === 'true') {
+      console.log(time, logString);
+    } else {
+      console.log(time, this.colored(logString, color));
+    }
   }
 
   private colored(
