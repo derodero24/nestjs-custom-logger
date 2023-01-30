@@ -1,12 +1,12 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 
-import { CustomLoggerMiddleware } from './custom-logger.middleware';
-import { CustomLoggerService } from './custom-logger.service';
+import { CustomLoggerMiddleware } from './logger.middleware';
+import { CustomLoggerService } from './logger.service';
 
 @Module({
   providers: [CustomLoggerService],
 })
-export class CustomLoggerModule implements NestModule {
+export class LoggerModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(CustomLoggerMiddleware).forRoutes('*');
   }

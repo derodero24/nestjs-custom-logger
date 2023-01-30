@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CustomLoggerModule } from './custom-logger/custom-logger.module';
+import { LoggerModule } from './logger/logger.module';
 
 @Module({
-  imports: [CustomLoggerModule],
+  imports: [LoggerModule],
   controllers: [AppController],
   providers: [AppService],
 })
