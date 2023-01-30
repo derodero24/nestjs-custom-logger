@@ -1,12 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { CustomLoggerService } from './custom-logger/custom-logger.service'; // ①
+import { CustomLoggerService } from './custom-logger/custom-logger.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    bufferLogs: true, // ②
+    bufferLogs: true,
   });
-  app.useLogger(app.get(CustomLoggerService)); // ③
+  app.useLogger(app.get(CustomLoggerService));
   await app.listen(3000);
 }
 bootstrap();

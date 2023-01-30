@@ -2,10 +2,10 @@ import { Injectable, Logger } from '@nestjs/common'; // ①import
 
 @Injectable()
 export class AppService {
-  private readonly logger = new Logger(AppService.name); // ②インスタンスを作成(引数がコンテキストとなる)
+  private readonly logger = new Logger(AppService.name);
 
   getHello(): string {
-    this.logger.log('Logging at service'); // ③logレベルのログを出力
+    this.logger.log('Logging at service');
     return 'Hello World!';
   }
 }

@@ -8,10 +8,9 @@ import { storage } from './storage';
 @Injectable()
 export class CustomLoggerMiddleware implements NestMiddleware {
   use(req: Request, _res: Response, next: NextFunction) {
-    // ユニークなIDを生成
-    const requestId = randomUUID();
-
-    // AsyncLocalStorage に リクエストID を保存
+    // Generate unique ID
+    const requestId = randomUUID().split('-').pop();
+    // Save to AsyncLocalStorage
     storage.run(requestId, next, undefined);
   }
 }
