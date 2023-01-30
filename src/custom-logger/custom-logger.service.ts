@@ -1,15 +1,19 @@
 import { Injectable, LogLevel, LoggerService } from '@nestjs/common';
+import { storage } from './storage';
 
 @Injectable()
 export class CustomLoggerService implements LoggerService {
   /** JSON形式に整形して標準出力に出力 */
   private write(level: LogLevel, ...args: unknown[]) {
     const time = new Date().toISOString();
-    const context = args.pop(); // args の最後の要素にコンテキスト(ログを出力する処理の場所)が入る
-    const message = args.shift(); // args の最初の要素をメッセージとする
-    const params = args.length !== 0 ? args : undefined; // args の残りの要素をパラメータ(オプション)とする
-    // JSON形式で標準出力に出力
-    console.log(JSON.stringify({ time, level, context, message, params }));
+    const context = args.pop();
+    const message = args.shift();
+    const params = args.length !== 0 ? args : undefined;
+    // AsyncLocalStorage から リクエストID を取得
+    const requestId = storage.getStore();
+    console.log(
+      JSON.stringify({ time, level, requestId, context, message, params }),
+    );
   }
 
   log(...args: unknown[]) {
